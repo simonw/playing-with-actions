@@ -25,4 +25,5 @@ jobs:
         pip install -e .[test]
     - name: Test with pytest
       run: |
+        cd /home/runner/work/playing-with-actions/datasette
         pytest
