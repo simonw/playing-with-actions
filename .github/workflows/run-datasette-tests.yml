@@ -20,7 +20,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        find /home
+        find /home | grep datasette
         pwd
         cd datasette
         python -m pip install --upgrade pip
