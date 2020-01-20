@@ -1,0 +1,41 @@
+name: Build and publish Datasette
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      name: Check out FARA
+      with:
+        repository: simonw/fara-history
+        ref: refs/heads/master
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Configure GCP for Cloud Run 
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '275.0.0'
+        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+    - run: gcloud info
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install csvs-to-sqlite datasette 
+    - name: Build the .db file
+      run: |
+        cd /home/runner/work/playing-with-actions/fara-history
+        csvs-to-sqlite *.csv fara.db --skip-errors
+    - name: Deploy to Cloud Run
+      run: |
+        cd /home/runner/work/playing-with-actions/fara-history
+        datasette publish cloudrun fara.db --service fara-history --name FARA
+        
