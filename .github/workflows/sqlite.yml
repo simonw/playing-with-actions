@@ -6,6 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Install SQLite
+      run: sudo apt-get install sqlite3
     - name: Test SQLite
       run: |
         sqlite3 :memory: 'select sqlite_version()'
