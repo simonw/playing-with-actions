@@ -1,0 +1,11 @@
+name: Test that SQLite is available
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Test SQLite
+      run: |
+        sqlite3 :memory: 'select sqlite_version()'
