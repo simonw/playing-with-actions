@@ -9,7 +9,12 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v2
       - name: Demonstrate curl binary
-        run: ./curl --version
+        run: |-
+          ./curl --version
+          echo "First attempt:"
+          curl -vv --etag-save etag.txt --etag-compare etag.txt https://c19downloads.azureedge.net/downloads/data/data_latest.json -o data_latest.json
+          echo "Second attempt:"
+          curl -vv --etag-save etag.txt --etag-compare etag.txt https://c19downloads.azureedge.net/downloads/data/data_latest.json -o data_latest.json
       - name: Download and compile curl
         if: false
         run: |-
