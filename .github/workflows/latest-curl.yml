@@ -6,26 +6,25 @@ jobs:
     steps:
       - name: Show built-in curl version
         run: curl --version
-      - uses: actions/checkout@v1
-      - uses: actions/cache@v1
-        id: cache
-        with:
-          path: /home/runner/work/playing-with-actions/playing-with-actions/curl-binary
-          key: ${{ runner.os }}-curl-binary-2
+      - name: Check out repo
+      - uses: actions/checkout@v2
       - name: Download and compile curl
-        if: steps.cache.outputs.cache-hit != 'true'
         run: |-
-          mkdir /home/runner/work/playing-with-actions/playing-with-actions/curl-binary
-          cd /home/runner/work/playing-with-actions/playing-with-actions/curl-binary
+          pwd
+          mkdir curl-binary
+          cd curl-binary
           wget https://curl.haxx.se/download/curl-7.69.1.tar.gz
           tar xzvf curl-7.69.1.tar.gz
           cd curl-7.69.1
           ./configure --prefix=/home/runner/work/playing-with-actions/playing-with-actions/curl-binary
           make
+          echo "New curl built:"
+          ./src/.libs/curl --version
           # Commit the binary to git
           mv ./src/.libs/curl /home/runner/work/playing-with-actions/playing-with-actions
           cd /home/runner/work/playing-with-actions/playing-with-actions
-          git add curl
+          ls -lah
+          git add -A curl
           git config user.name "Actions"
           git config user.email "actions@users.noreply.github.com"
           git commit -m "Committing curl binary" || exit 0
