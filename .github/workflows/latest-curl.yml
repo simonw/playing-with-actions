@@ -14,6 +14,7 @@ jobs:
       - name: Download and compile curl
         if: steps.cache.outputs.cache-hit != 'true'
         run: |-
+          mkdir /home/runner/work/playing-with-actions/playing-with-actions/curl-binary
           cd /home/runner/work/playing-with-actions/playing-with-actions/curl-binary
           wget https://curl.haxx.se/download/curl-7.69.1.tar.gz
           tar xzvf curl-7.69.1.tar.gz
