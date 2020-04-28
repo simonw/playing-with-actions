@@ -7,7 +7,7 @@ jobs:
       - name: Show built-in curl version
         run: curl --version
       - name: Check out repo
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       - name: Download and compile curl
         run: |-
           pwd
