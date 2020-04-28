@@ -1,6 +1,6 @@
 name: Run Datasette Tests
 
-on: [push]
+on: []
 
 jobs:
   build:
