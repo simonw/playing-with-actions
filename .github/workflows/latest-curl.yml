@@ -1,0 +1,8 @@
+on: push
+
+jobs:
+  one:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show built-in curl version
+        run: curl --version && pwd
