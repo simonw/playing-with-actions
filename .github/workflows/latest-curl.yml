@@ -6,6 +6,7 @@ jobs:
     steps:
       - name: Show built-in curl version
         run: curl --version
+      - uses: actions/checkout@v1
       - uses: actions/cache@v1
         id: cache
         with:
