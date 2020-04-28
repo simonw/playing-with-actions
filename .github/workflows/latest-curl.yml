@@ -20,9 +20,9 @@ jobs:
           make
           find .
           echo "New curl built:"
-          ./src/.libs/curl --version
+          ./src/curl --version
           # Commit the binary to git
-          mv ./src/.libs/curl /home/runner/work/playing-with-actions/playing-with-actions
+          mv ./src/curl /home/runner/work/playing-with-actions/playing-with-actions
           cd /home/runner/work/playing-with-actions/playing-with-actions
           ls -lah
           git add -A curl
