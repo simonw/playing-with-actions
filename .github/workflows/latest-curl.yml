@@ -16,14 +16,14 @@ jobs:
           echo "Second attempt:"
           ./curl -vv --etag-save etag.txt --etag-compare etag.txt https://c19downloads.azureedge.net/downloads/data/data_latest.json -o data_latest.json
       - name: Download and compile curl
-        if: false
+        # if: false
         run: |-
           pwd
           mkdir curl-binary
           cd curl-binary
-          wget https://curl.haxx.se/download/curl-7.69.1.tar.gz
-          tar xzvf curl-7.69.1.tar.gz
-          cd curl-7.69.1
+          wget https://curl.haxx.se/download/curl-7.70.0.tar.gz
+          tar xzvf curl-7.70.0.tar.gz
+          cd curl-7.70.0
           ./configure --disable-shared --prefix=/home/runner/work/playing-with-actions/playing-with-actions/curl-binary
           make
           find .
