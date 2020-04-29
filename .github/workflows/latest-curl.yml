@@ -16,7 +16,7 @@ jobs:
           echo "Second attempt:"
           ./curl -vv --etag-save etag.txt --etag-compare etag.txt https://c19downloads.azureedge.net/downloads/data/data_latest.json -o data_latest.json
       - name: Download and compile curl
-        # if: false
+        if: false
         run: |-
           pwd
           mkdir curl-binary
