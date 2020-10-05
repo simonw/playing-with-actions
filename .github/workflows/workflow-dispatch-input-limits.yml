@@ -1,0 +1,16 @@
+name: Testing size limits of workflow_dispatch inputs
+on:
+  workflow_dispatch:
+    inputs:
+      long_string:
+        description: 'A really long string'
+        required: true
+
+jobs:
+  say_hello:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print long_string
+      env:
+        long_string: ${{ github.events.inputs.long_string }}
+      run: cat $long_string
