@@ -31,4 +31,6 @@ jobs:
             console.log(result)
             return result
       - name: Show result
-        run: echo "${{steps.fetch-repo-and-user-details.outputs.result}}"
+        env:
+          INFO: ${{ steps.fetch-repo-and-user-details.outputs.result }}
+        run: echo $INFO
