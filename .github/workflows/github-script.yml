@@ -8,4 +8,22 @@ jobs:
       - uses: actions/github-script@v4
         with:
           script: |
-            console.log(github.users.getAuthenticated());
+            const query = `query($owner:String!, $name:String!) {
+              repository(owner:$owner, name:$name){
+                owner {
+                  login
+                  ... on User {
+                    name
+                  }
+                  ... on Organization {
+                    name
+                  }
+                }
+              }
+            }`;
+            const variables = {
+              owner: context.repo.owner,
+              name: context.repo.repo
+            }
+            const result = await github.graphql(query, variables)
+            console.log(result)
