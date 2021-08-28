@@ -9,7 +9,8 @@ jobs:
         with:
           script: |
             const query = `query($owner:String!, $name:String!) {
-              repository(owner:$owner, name:$name){
+              repository(owner:$owner, name:$name) {
+                description
                 owner {
                   login
                   ... on User {
