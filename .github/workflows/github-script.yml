@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v4
+        id: fetch-repo-and-user-details
         with:
           script: |
             const query = `query($owner:String!, $name:String!) {
@@ -28,3 +29,6 @@ jobs:
             }
             const result = await github.graphql(query, variables)
             console.log(result)
+            return result
+      - name: Show result
+        run: echo "${{steps.fetch-repo-and-user-details.outputs.result}}"
