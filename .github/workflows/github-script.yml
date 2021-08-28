@@ -1,0 +1,11 @@
+on:
+  push:
+
+jobs:
+  script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v4
+        with:
+          script: |
+            console.log(github.users.getAuthenticated());
