@@ -20,12 +20,14 @@ jobs:
           const path = require('path');
           const fs = require('fs');
           const tag = context.ref.replace("refs/tags/", "");
+          console.log("tag = ", tag);
           // Get release for this tag
           const release = await github.repos.getReleaseByTag({
             owner: context.repo.owner,
             repo: context.repo.repo,
             tag
           });
+          console.log("release = ", release);
           // Upload the release asset
           await github.repos.uploadReleaseAsset({
             owner: context.repo.owner,
