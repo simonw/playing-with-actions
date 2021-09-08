@@ -1,4 +1,4 @@
-name: Publish Python Package
+name: Release
 
 on:
   release:
@@ -22,8 +22,8 @@ jobs:
           const tag = context.ref.replace("refs/tags/", "");
           // Get release for this tag
           const release = await github.repos.getReleaseByTag({
-            context.repo.owner,
-            context.repo.repo,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
             tag
           });
           // Upload the release asset
