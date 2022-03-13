@@ -1,36 +1,20 @@
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   script:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v4
-        id: fetch-repo-and-user-details
+        id: script-demo
         with:
           script: |
-            const query = `query($owner:String!, $name:String!) {
-              repository(owner:$owner, name:$name) {
-                description
-                owner {
-                  login
-                  ... on User {
-                    name
-                  }
-                  ... on Organization {
-                    name
-                  }
-                }
-              }
-            }`;
-            const variables = {
-              owner: context.repo.owner,
-              name: context.repo.repo
-            }
-            const result = await github.graphql(query, variables)
-            console.log(result)
-            return result
+            const {repo, owner} = github.context.issue;
+            const details = await octokit.rest.repos.get({owner, repo});
+            console.log(details);
+            console.log(details.description);
+            return details;
       - name: Show result
         env:
-          INFO: ${{ steps.fetch-repo-and-user-details.outputs.result }}
+          INFO: ${{ steps.script-demo.outputs.result }}
         run: echo $INFO
