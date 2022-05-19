@@ -1,0 +1,15 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  script:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Cache OxiPNG
+      uses: actions/cache@v3
+      with:
+        path: ~/.cargo/
+        key: ${{ runner.os }}-cargo
+    - name: Install oxipng
+      run: |
+        which oxipng || cargo install oxipng
