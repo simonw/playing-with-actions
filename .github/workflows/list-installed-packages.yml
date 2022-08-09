@@ -1,0 +1,10 @@
+name: List installed Ubuntu packages
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    name: List packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: List packages
+        run: apt list --installed
