@@ -1,0 +1,29 @@
+on:
+  push
+
+jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    outputs:
+      continue: ${{ steps.check.outputs.continue }}
+    steps:
+      - name: Check branch
+        id: check
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/staging" ]; then
+            echo "::set-output name=continue::true"
+          else
+            echo "::set-output name=continue::false"
+          fi
+
+  example-job:
+    runs-on: ubuntu-latest
+    needs: check-branch
+    if: needs.check-branch.outputs.continue == 'true'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run your tasks
+        run: |
+          echo "Running tasks on the staging branch."
